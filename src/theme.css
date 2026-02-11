@@ -1,0 +1,46 @@
+/* Nordic Maskin & Rail Color Palette */
+:root {
+  /* Primary Brand Color */
+  --primary-color: #125c5c;
+  --primary-dark: #0d4545;
+  --primary-light: #1a7a7a;
+  --primary-hover: #158080;
+  
+  /* Backgrounds */
+  --bg-primary: #1a2f3f;
+  --bg-secondary: #0f1f2f;
+  --bg-card: #2a4555;
+  --bg-hover: rgba(18, 92, 92, 0.15);
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #bdc3c7;
+  --text-muted: rgba(255, 255, 255, 0.6);
+  
+  /* Accent Colors */
+  --accent-success: #27ae60;
+  --accent-warning: #f39c12;
+  --accent-danger: #e74c3c;
+  --accent-info: #3498db;
+  
+  /* Borders & Shadows */
+  --border-color: rgba(18, 92, 92, 0.3);
+  --border-light: rgba(255, 255, 255, 0.2);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  
+  /* Interactive States */
+  --hover-overlay: rgba(18, 92, 92, 0.2);
+  --active-overlay: rgba(18, 92, 92, 0.3);
+  --focus-ring: rgba(18, 92, 92, 0.5);
+}
+
+/* Dark theme adjustments */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0a1520;
+    --bg-secondary: #050d15;
+    --bg-card: #152535;
+  }
+}

@@ -1,0 +1,108 @@
+.team-member-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.team-member-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.team-member-card.selected {
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.team-member-card.unavailable {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  opacity: 0.7;
+}
+
+.member-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.member-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.status-badge.available {
+  background-color: #4caf50;
+  color: white;
+}
+
+.status-badge.unavailable {
+  background-color: #f44336;
+  color: white;
+}
+
+.member-details {
+  font-size: 13px;
+}
+
+.detail-row {
+  display: flex;
+  margin: 4px 0;
+}
+
+.detail-label {
+  font-weight: 600;
+  margin-right: 6px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.detail-value {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.qualifications-section {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.qualifications-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.qualification-badge {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.no-qualifications {
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  font-size: 11px;
+}

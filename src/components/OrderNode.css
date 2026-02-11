@@ -1,0 +1,462 @@
+.order-node {
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-primary) 100%);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.order-node:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 16px rgba(18, 92, 92, 0.3);
+}
+
+/* Header */
+.order-header {
+  margin-bottom: 16px;
+}
+
+.order-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-title {
+  margin: 0;
+  font-size: 18px;
+  color: #ecf0f1;
+}
+
+.order-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.toggle-btn,
+.delete-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.delete-btn:hover {
+  background-color: #e74c3c;
+}
+
+/* Content */
+.order-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.order-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-field label {
+  min-width: 90px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #bdc3c7;
+}
+
+.order-input {
+  flex: 1;
+  padding: 6px 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: white;
+  font-size: 13px;
+  outline: none;
+}
+
+.order-input:focus {
+  border-color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.order-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.order-coords {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  padding-left: 8px;
+}
+
+.coords-label {
+  color: #95a5a6;
+  min-width: 80px;
+}
+
+.coords-value {
+  color: #87CEEB;
+  font-family: monospace;
+}
+
+/* Location Controls */
+.location-controls {
+  flex: 1;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.location-input {
+  flex: 1;
+}
+
+.map-btn {
+  padding: 6px 12px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  border: 1px solid var(--primary-color);
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(18, 92, 92, 0.3);
+}
+
+.map-btn:hover {
+  background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
+  box-shadow: 0 3px 10px rgba(18, 92, 92, 0.5);
+  transform: translateY(-1px);
+}
+
+.map-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(18, 92, 92, 0.4);
+}
+
+.order-separator {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 8px 0;
+}
+
+/* Daily Schedule */
+.daily-schedule {
+  margin-top: 8px;
+}
+
+.schedule-title,
+.roles-title {
+  font-size: 13px;
+  margin: 0 0 8px 0;
+  color: #3498db;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.day-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.day-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 70px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.day-checkbox input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.day-name {
+  color: #ecf0f1;
+  font-weight: 500;
+}
+
+.time-input {
+  width: 50px;
+  padding: 4px 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  color: white;
+  font-size: 11px;
+  text-align: center;
+  outline: none;
+}
+
+.time-input:focus {
+  border-color: #3498db;
+}
+
+.time-input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.time-separator {
+  color: #95a5a6;
+  font-size: 12px;
+}
+
+/* Role Slots */
+.role-slots {
+  margin-top: 16px;
+}
+
+.role-slot {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 2px solid;
+  border-radius: 6px;
+  min-height: 50px;
+  transition: all 0.3s ease;
+}
+
+.role-slot.empty {
+  border-style: dashed;
+  opacity: 0.7;
+}
+
+.role-slot.filled {
+  border-style: solid;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.role-slot:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.role-label {
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.drop-zone {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  font-style: italic;
+  text-align: center;
+  padding: 4px 0;
+}
+
+.assigned-member {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 6px 10px;
+  border-radius: 4px;
+  gap: 8px;
+}
+
+.member-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  flex: 1;
+}
+
+.member-quals {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  flex: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-member-btn {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.remove-member-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Member Selector (Search + Dropdown) */
+.member-selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.member-search-input {
+  flex: 1;
+  padding: 6px 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  outline: none;
+}
+
+.member-search-input:focus {
+  border-color: #3498db;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.member-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.dropdown-toggle-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.dropdown-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.member-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background-color: #1a3a4f;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.member-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s;
+}
+
+.member-option:hover {
+  background-color: rgba(52, 152, 219, 0.3);
+}
+
+.member-option:last-child {
+  border-bottom: none;
+}
+
+.member-option-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 2px;
+}
+
+.member-option-quals {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
+
+.no-members {
+  padding: 12px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* Save Button */
+.order-actions-bottom {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+}
+
+.save-order-btn {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+.save-order-btn:hover {
+  background: linear-gradient(135deg, #229954 0%, #1e8449 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+}
+
+.save-order-btn:active {
+  transform: translateY(0);
+}
+
+/* Drag and drop effects */
+.role-slot.drag-over {
+  background-color: rgba(52, 152, 219, 0.3);
+  border-color: #3498db;
+}
