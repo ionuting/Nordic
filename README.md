@@ -324,6 +324,41 @@ Fișierele de producție vor fi generate în directorul `dist/`.
 3. **Real-time**: Folosește Supabase Realtime în loc de WebSocket custom
 4. **Deployment**: Poate fi deployat ca aplicație web statică
 
+## 🚀 Deployment
+
+### Opțiuni Gratuite
+
+1. **Render** (Recomandat pentru demo)
+   - Static site gratuit
+   - Zero downtime deploys
+   - Documentație: [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md)
+
+2. **Vercel** (Production-ready)
+   - Très rapide
+   - Auto-CI/CD
+   - Documentație: [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)
+
+3. **Netlify**
+   - Alternative to Vercel
+   - Similar features
+
+### Pași Rapizi
+
+```bash
+# 1. Build local
+npm run build
+
+# 2. Push to GitHub
+git push origin main
+
+# 3. Connect on Render/Vercel
+# - Build: npm run build
+# - Publish: dist
+# - Env vars: VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY
+
+# 4. Deploy!
+```
+
 ## Funcționalități viitoare
 
 - [ ] Adăugare task-uri și planificare
