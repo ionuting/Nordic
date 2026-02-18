@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Order, ROLE_TYPES, OrderStatus } from '../types/order';
 import { TeamMemberDisplay } from '../types/teamMember';
+import { Team } from '../types/team';
 import MapPicker from './MapPicker';
 import './OrderNode.css';
 
@@ -10,6 +11,7 @@ interface OrderNodeProps {
   onDelete: (orderId: string) => void;
   onMemberDrop: (orderId: string, role: string, member: TeamMemberDisplay) => void;
   onMemberRemove: (orderId: string, role: string) => void;
+  onTeamDrop?: (orderId: string, team: Team) => void;
 }
 
 const OrderNode: React.FC<OrderNodeProps> = ({
@@ -18,11 +20,13 @@ const OrderNode: React.FC<OrderNodeProps> = ({
   onDelete,
   onMemberDrop,
   onMemberRemove,
+  onTeamDrop,
 }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [orderNumber, setOrderNumber] = useState(order.orderNumber);
   const [location, setLocation] = useState(order.location);
   const [showMapPicker, setShowMapPicker] = useState(false);
+  const [teamDropHover, setTeamDropHover] = useState(false);
 
   const handleOrderNumberChange = (value: string) => {
     setOrderNumber(value);
@@ -68,6 +72,21 @@ const OrderNode: React.FC<OrderNodeProps> = ({
         onMemberDrop(order.id, role, member);
       } catch (error) {
         console.error('Error parsing dropped member:', error);
+      }
+    }
+  };
+
+  const handleTeamZoneDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setTeamDropHover(false);
+    const teamData = e.dataTransfer.getData('application/team-json');
+    if (teamData && onTeamDrop) {
+      try {
+        const team: Team = JSON.parse(teamData);
+        onTeamDrop(order.id, team);
+      } catch (error) {
+        console.error('Error parsing dropped team:', error);
       }
     }
   };
@@ -239,7 +258,19 @@ const OrderNode: React.FC<OrderNodeProps> = ({
 
           {/* Role Slots - Drag & Drop */}
           <div className="role-slots">
-            <h4 className="roles-title">Team Assignments (Drag & Drop):</h4>
+            <h4 className="roles-title">Team Assignments (Drag &amp; Drop):</h4>
+
+            {/* Team drop zone */}
+            {onTeamDrop && (
+              <div
+                className={`team-drop-zone ${teamDropHover ? 'hover' : ''}`}
+                onDrop={handleTeamZoneDrop}
+                onDragOver={(e) => { e.preventDefault(); setTeamDropHover(true); }}
+                onDragLeave={() => setTeamDropHover(false)}
+              >
+                {teamDropHover ? '✅ Release to apply team' : '👥 Drop a team here to auto-fill all roles'}
+              </div>
+            )}
             {ROLE_TYPES.map(({ role, color, label }) => {
               const assignedMember = getMemberForRole(role);
               

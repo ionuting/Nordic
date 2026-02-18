@@ -202,6 +202,16 @@ function App() {
       })
     );
   };
+
+  const handleTeamDropOnOrder = async (orderId: string, team: Team) => {
+    const order = orders.find((o) => o.id === orderId);
+    if (!order) return;
+    const updatedAssignments = order.roleAssignments.map((assignment) => {
+      const teamAssignment = team.roleAssignments.find((a) => a.role === assignment.role);
+      return teamAssignment?.member ? { ...assignment, member: teamAssignment.member } : assignment;
+    });
+    await handleUpdateOrder({ ...order, roleAssignments: updatedAssignments });
+  };
   // ────────────────────────────────────────────────────────────────────────────
 
   // Helper to get current week number
@@ -317,6 +327,8 @@ function App() {
             onMemberSelect={handleMemberSelect}
             currentWeekNumber={getCurrentWeekNumber()}
             orders={filteredOrders}
+            teams={teams}
+            showTeamsView={true}
           />
           
           <div className="planning-canvas">
@@ -387,6 +399,7 @@ function App() {
                       onDelete={handleDeleteOrder}
                       onMemberDrop={handleMemberDrop}
                       onMemberRemove={handleMemberRemove}
+                      onTeamDrop={handleTeamDropOnOrder}
                     />
                   ))}
                 </div>
