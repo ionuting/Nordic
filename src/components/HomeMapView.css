@@ -106,6 +106,29 @@
   background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
 }
 
+.machines-toggle-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #78909c 0%, #546e7a 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.machines-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 152, 0, 0.4);
+}
+
+.machines-toggle-btn.active {
+  background: linear-gradient(135deg, #f57c00 0%, #e65100 100%);
+  box-shadow: 0 0 10px rgba(245, 124, 0, 0.5);
+}
+
 .weather-loading {
   font-size: 12px;
   color: #ff9800;
@@ -354,4 +377,82 @@
 
 .leaflet-popup-tip {
   background: white;
+}
+
+/* Machine popup */
+.machine-popup {
+  min-width: 260px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.machine-popup-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.machine-popup-icon {
+  font-size: 20px;
+}
+
+.machine-popup h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.machine-status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.machine-status-badge.status-available {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.machine-status-badge.status-in_use {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.machine-status-badge.status-maintenance {
+  background: #fce4ec;
+  color: #c62828;
+}
+
+.machine-popup-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.machine-popup-table td {
+  padding: 4px 6px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.machine-popup-table td:first-child {
+  font-weight: 600;
+  color: #666;
+  width: 70px;
+}
+
+.machine-popup-table td:last-child {
+  color: #222;
+}
+
+.machine-popup-notes {
+  margin: 8px 0 0 0;
+  font-size: 11px;
+  color: #555;
+  font-style: italic;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
 }

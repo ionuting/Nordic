@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
 import TeamLibrarySidebar from './components/TeamLibrarySidebar';
 import OrderNode from './components/OrderNode';
+import TeamNode from './components/TeamNode';
 import HomeMapView from './components/HomeMapView';
 import DatabaseView from './components/DatabaseView';
 import { TeamMemberDisplay } from './types/teamMember';
 import { Order, createNewOrder } from './types/order';
+import { Team, createNewTeam } from './types/team';
 import { OrderService } from './services/orderService';
 import { TeamMemberService } from './services/supabaseService';
 import './App.css';
 
-type TabType = 'home' | 'planning' | 'database';
+type TabType = 'home' | 'planning' | 'configure-teams' | 'database';
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  // Configure Teams state (local only)
+  const [teams, setTeams] = useState<Team[]>([]);
 
   // Load orders on component mount
   useEffect(() => {
@@ -156,6 +161,49 @@ function App() {
     console.log('Selected member:', member);
   };
 
+  // ── Configure Teams handlers ────────────────────────────────────────────────
+  const handleAddTeam = () => {
+    setTeams((prev) => [...prev, createNewTeam()]);
+  };
+
+  const handleUpdateTeam = (updatedTeam: Team) => {
+    setTeams((prev) => prev.map((t) => (t.id === updatedTeam.id ? updatedTeam : t)));
+  };
+
+  const handleDeleteTeam = (teamId: string) => {
+    const confirmed = window.confirm('Delete this team configuration?');
+    if (confirmed) setTeams((prev) => prev.filter((t) => t.id !== teamId));
+  };
+
+  const handleTeamMemberDrop = (teamId: string, role: string, member: TeamMemberDisplay) => {
+    setTeams((prev) =>
+      prev.map((t) => {
+        if (t.id !== teamId) return t;
+        return {
+          ...t,
+          roleAssignments: t.roleAssignments.map((a) =>
+            a.role === role ? { ...a, member } : a
+          ),
+        };
+      })
+    );
+  };
+
+  const handleTeamMemberRemove = (teamId: string, role: string) => {
+    setTeams((prev) =>
+      prev.map((t) => {
+        if (t.id !== teamId) return t;
+        return {
+          ...t,
+          roleAssignments: t.roleAssignments.map((a) =>
+            a.role === role ? { ...a, member: null } : a
+          ),
+        };
+      })
+    );
+  };
+  // ────────────────────────────────────────────────────────────────────────────
+
   // Helper to get current week number
   const getCurrentWeekNumber = (): number => {
     const now = new Date();
@@ -164,6 +212,16 @@ function App() {
     const oneWeek = 1000 * 60 * 60 * 24 * 7;
     return Math.ceil(diff / oneWeek);
   };
+
+  // Timeline filter state — default: current week to current week + 3
+  const currentWeek = getCurrentWeekNumber();
+  const [fromWeek, setFromWeek] = useState<number>(currentWeek);
+  const [toWeek, setToWeek] = useState<number>(currentWeek + 3);
+
+  // Orders filtered by the selected week range
+  const filteredOrders = orders.filter(
+    (o) => o.weekNumber >= fromWeek && o.weekNumber <= toWeek
+  );
 
   return (
     <div className="app">
@@ -187,6 +245,12 @@ function App() {
           📋 Planning
         </button>
         <button
+          className={`tab-btn ${activeTab === 'configure-teams' ? 'active' : ''}`}
+          onClick={() => setActiveTab('configure-teams')}
+        >
+          👥 Configure Teams
+        </button>
+        <button
           className={`tab-btn ${activeTab === 'database' ? 'active' : ''}`}
           onClick={() => setActiveTab('database')}
         >
@@ -203,16 +267,98 @@ function App() {
         <div className="tab-content tab-content-scrollable">
           <DatabaseView />
         </div>
+      ) : activeTab === 'configure-teams' ? (
+        <div className="app-content">
+          <TeamLibrarySidebar
+            onMemberSelect={handleMemberSelect}
+            currentWeekNumber={getCurrentWeekNumber()}
+            orders={[]}
+            teams={teams}
+          />
+
+          <div className="planning-canvas">
+            <div className="canvas-header">
+              <h2>👥 Configure Teams</h2>
+              <div className="canvas-actions">
+                <button className="add-order-btn" onClick={handleAddTeam}>
+                  ➕ Add New Team
+                </button>
+                <span className="timeline-badge">
+                  {teams.length} team{teams.length !== 1 ? 's' : ''}
+                </span>
+              </div>
+            </div>
+
+            <div className="canvas-content">
+              {teams.length === 0 ? (
+                <div className="empty-canvas">
+                  <p>👥 No teams yet. Click "Add New Team" to start configuring!</p>
+                </div>
+              ) : (
+                <div className="orders-list">
+                  {teams.map((team) => (
+                    <TeamNode
+                      key={team.id}
+                      team={team}
+                      onUpdate={handleUpdateTeam}
+                      onDelete={handleDeleteTeam}
+                      onMemberDrop={handleTeamMemberDrop}
+                      onMemberRemove={handleTeamMemberRemove}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       ) : (
         <div className="app-content">
           <TeamLibrarySidebar 
             onMemberSelect={handleMemberSelect}
             currentWeekNumber={getCurrentWeekNumber()}
+            orders={filteredOrders}
           />
           
           <div className="planning-canvas">
             <div className="canvas-header">
               <h2>Orders Canvas</h2>
+
+              {/* Timeline filter */}
+              <div className="timeline-filter">
+                <span className="timeline-label">📅 Week range:</span>
+                <div className="timeline-inputs">
+                  <label>From</label>
+                  <input
+                    type="number"
+                    className="week-input"
+                    min={1}
+                    max={52}
+                    value={fromWeek}
+                    onChange={(e) => {
+                      const val = Math.min(52, Math.max(1, Number(e.target.value)));
+                      setFromWeek(val);
+                      if (val > toWeek) setToWeek(val);
+                    }}
+                  />
+                  <label>To</label>
+                  <input
+                    type="number"
+                    className="week-input"
+                    min={1}
+                    max={52}
+                    value={toWeek}
+                    onChange={(e) => {
+                      const val = Math.min(52, Math.max(1, Number(e.target.value)));
+                      setToWeek(val);
+                      if (val < fromWeek) setFromWeek(val);
+                    }}
+                  />
+                </div>
+                <span className="timeline-badge">
+                  {filteredOrders.length} order{filteredOrders.length !== 1 ? 's' : ''}
+                </span>
+              </div>
+
               <div className="canvas-actions">
                 <button 
                   className="add-order-btn"
@@ -221,22 +367,19 @@ function App() {
                 >
                   ➕ Add New Order
                 </button>
-                <span className="order-count">
-                  {orders.length} order{orders.length !== 1 ? 's' : ''}
-                </span>
               </div>
             </div>
             
             <div className="canvas-content">
               {loading ? (
                 <div className="loading-state">Loading orders...</div>
-              ) : orders.length === 0 ? (
+              ) : filteredOrders.length === 0 ? (
                 <div className="empty-canvas">
-                  <p>📋 No orders yet. Click "Add New Order" to start planning!</p>
+                  <p>📋 No orders for weeks {fromWeek}–{toWeek}. Add one or adjust the range.</p>
                 </div>
               ) : (
                 <div className="orders-list">
-                  {orders.map((order) => (
+                  {filteredOrders.map((order) => (
                     <OrderNode
                       key={order.id}
                       order={order}

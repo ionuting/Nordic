@@ -1,0 +1,70 @@
+[
+  {
+    "id": "MCH-001",
+    "name": "Kranvogn Alpha",
+    "type": "Crane",
+    "model": "Liebherr LTM 1100-5.2",
+    "year": 2019,
+    "plate": "AB 12 345",
+    "status": "available",
+    "location": {
+      "city": "København",
+      "address": "Sydhavn Terminal, Sydhavnsgade 34, 2450 København SV",
+      "latitude": 55.6554,
+      "longitude": 12.5370
+    },
+    "capacity_tons": 100,
+    "notes": "Stor mobilkran til tungt løft. Senest serviceret jan 2026."
+  },
+  {
+    "id": "MCH-002",
+    "name": "Kranvogn Beta",
+    "type": "Crane",
+    "model": "Grove GMK 4100L",
+    "year": 2021,
+    "plate": "CD 23 456",
+    "status": "in_use",
+    "location": {
+      "city": "Aarhus",
+      "address": "Aarhus Havn, Mindet 2, 8000 Aarhus C",
+      "latitude": 56.1537,
+      "longitude": 10.2197
+    },
+    "capacity_tons": 120,
+    "notes": "Under opgave uge 8 – jernbaneprojekt ved Aarhus Nord."
+  },
+  {
+    "id": "MCH-003",
+    "name": "Kranvogn Gamma",
+    "type": "Crane",
+    "model": "Tadano ATF 60G-3",
+    "year": 2018,
+    "plate": "EF 34 567",
+    "status": "maintenance",
+    "location": {
+      "city": "Odense",
+      "address": "Odense Banegård, Østre Stationsvej 27, 5000 Odense C",
+      "latitude": 55.4038,
+      "longitude": 10.3853
+    },
+    "capacity_tons": 60,
+    "notes": "Til service – planlagt returnering uge 9."
+  },
+  {
+    "id": "MCH-004",
+    "name": "Kranvogn Delta",
+    "type": "Crane",
+    "model": "Manitowoc MLC300",
+    "year": 2022,
+    "plate": "GH 45 678",
+    "status": "available",
+    "location": {
+      "city": "Aalborg",
+      "address": "Aalborg Havn, Østre Havnepromenade 11, 9000 Aalborg",
+      "latitude": 57.0502,
+      "longitude": 9.9217
+    },
+    "capacity_tons": 300,
+    "notes": "Crawler crane – ideel til tunge jernbanebroarbejder."
+  }
+]

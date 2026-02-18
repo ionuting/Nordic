@@ -2,6 +2,9 @@
 
 import { TeamMemberDisplay } from './teamMember';
 
+// Order status
+export type OrderStatus = 'to_start' | 'in_progress' | 'finished' | null;
+
 // Role types matching the 13 input ports from Godot
 export type RoleType =
   | 'Sjakbajs'
@@ -62,6 +65,7 @@ export interface Order {
   roleAssignments: RoleAssignment[]; // 13 roles
   createdAt?: string;
   updatedAt?: string;
+  status?: OrderStatus;
 }
 
 // Supabase database schema for Orders table

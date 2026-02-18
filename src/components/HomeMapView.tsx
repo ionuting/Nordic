@@ -3,7 +3,9 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Order } from '../types/order';
+import { Machine } from '../types/machine';
 import { WeatherService, LocationWeather } from '../services/weatherService';
+import machinesData from '../data/machines.json';
 import './HomeMapView.css';
 
 // Fix Leaflet default marker icon
@@ -34,6 +36,16 @@ const weatherIcon = new L.Icon({
   shadowSize: [33, 33],
 });
 
+// Custom icon for machine/crane markers (orange)
+const machineIcon = new L.Icon({
+  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
 interface HomeMapViewProps {
   orders: Order[];
   loading: boolean;
@@ -46,6 +58,9 @@ const HomeMapView: React.FC<HomeMapViewProps> = ({ orders, loading }) => {
   const [weatherData, setWeatherData] = useState<Map<string, LocationWeather>>(new Map());
   const [showWeather, setShowWeather] = useState(true);
   const [weatherLoading, setWeatherLoading] = useState(false);
+  const [showMachines, setShowMachines] = useState(false);
+
+  const machines = machinesData as Machine[];
 
   // Filter orders by week range
   const filteredOrders = useMemo(() => {
@@ -124,6 +139,13 @@ const HomeMapView: React.FC<HomeMapViewProps> = ({ orders, loading }) => {
                 {showWeather ? '🌤️ Weather ON' : '🌤️ Weather OFF'}
               </button>
               {weatherLoading && <span className="weather-loading">Loading weather...</span>}
+              <button
+                className={`machines-toggle-btn ${showMachines ? 'active' : ''}`}
+                onClick={() => setShowMachines(!showMachines)}
+                title={showMachines ? 'Hide machines' : 'Show machines'}
+              >
+                🏗️ {showMachines ? 'Machines ON' : 'Machines OFF'}
+              </button>
             </div>
           </div>
         </div>
@@ -206,6 +228,42 @@ const HomeMapView: React.FC<HomeMapViewProps> = ({ orders, loading }) => {
                     <p><strong>Location:</strong> {order.location || 'Not set'}</p>
                     <p><strong>Team:</strong> {getAssignedMembersCount(order)} members</p>
                     <p><strong>Days:</strong> {getActiveDaysCount(order)} active</p>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+
+            {/* Machine Markers */}
+            {showMachines && machines.map((machine) => (
+              <Marker
+                key={machine.id}
+                position={[machine.location.latitude, machine.location.longitude]}
+                icon={machineIcon}
+              >
+                <Popup>
+                  <div className="machine-popup">
+                    <div className="machine-popup-header">
+                      <span className="machine-popup-icon">🏗️</span>
+                      <h4>{machine.name}</h4>
+                    </div>
+                    <div className={`machine-status-badge status-${machine.status}`}>
+                      {machine.status === 'available' ? '✅ Available' :
+                       machine.status === 'in_use' ? '🔄 In Use' : '🔧 Maintenance'}
+                    </div>
+                    <table className="machine-popup-table">
+                      <tbody>
+                        <tr><td>ID</td><td>{machine.id}</td></tr>
+                        <tr><td>Model</td><td>{machine.model}</td></tr>
+                        <tr><td>Year</td><td>{machine.year}</td></tr>
+                        <tr><td>Plate</td><td>{machine.plate}</td></tr>
+                        <tr><td>Capacity</td><td>{machine.capacity_tons} t</td></tr>
+                        <tr><td>City</td><td>{machine.location.city}</td></tr>
+                        <tr><td>Address</td><td>{machine.location.address}</td></tr>
+                      </tbody>
+                    </table>
+                    {machine.notes && (
+                      <p className="machine-popup-notes">📝 {machine.notes}</p>
+                    )}
                   </div>
                 </Popup>
               </Marker>

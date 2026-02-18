@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Order, ROLE_TYPES } from '../types/order';
+import { Order, ROLE_TYPES, OrderStatus } from '../types/order';
 import { TeamMemberDisplay } from '../types/teamMember';
 import MapPicker from './MapPicker';
 import './OrderNode.css';
@@ -81,6 +81,17 @@ const OrderNode: React.FC<OrderNodeProps> = ({
     onMemberRemove(order.id, role);
   };
 
+  const handleStatusChange = (newStatus: OrderStatus) => {
+    // Toggle off if clicking the active one
+    const status = order.status === newStatus ? null : newStatus;
+    onUpdate({ ...order, status });
+  };
+
+  const statusBorderClass =
+    order.status === 'to_start' ? 'status-to-start' :
+    order.status === 'in_progress' ? 'status-in-progress' :
+    order.status === 'finished' ? 'status-finished' : '';
+
   const getMemberForRole = (role: string): TeamMemberDisplay | null => {
     const assignment = order.roleAssignments.find((a) => a.role === role);
     return assignment?.member || null;
@@ -89,7 +100,7 @@ const OrderNode: React.FC<OrderNodeProps> = ({
   const shortDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   return (
-    <div className="order-node">
+    <div className={`order-node ${statusBorderClass}`}>
       {/* Header */}
       <div className="order-header">
         <div className="order-title-row">
@@ -155,6 +166,37 @@ const OrderNode: React.FC<OrderNodeProps> = ({
             <span className="coords-value">
               {order.locationLatitude.toFixed(6)}, {order.locationLongitude.toFixed(6)}
             </span>
+          </div>
+
+          <div className="order-separator"></div>
+
+          {/* Status */}
+          <div className="order-status">
+            <span className="status-title">Status:</span>
+            <label className={`status-checkbox to-start ${order.status === 'to_start' ? 'active' : ''}`}>
+              <input
+                type="checkbox"
+                checked={order.status === 'to_start'}
+                onChange={() => handleStatusChange('to_start')}
+              />
+              To Start
+            </label>
+            <label className={`status-checkbox in-progress ${order.status === 'in_progress' ? 'active' : ''}`}>
+              <input
+                type="checkbox"
+                checked={order.status === 'in_progress'}
+                onChange={() => handleStatusChange('in_progress')}
+              />
+              In Progress
+            </label>
+            <label className={`status-checkbox finished ${order.status === 'finished' ? 'active' : ''}`}>
+              <input
+                type="checkbox"
+                checked={order.status === 'finished'}
+                onChange={() => handleStatusChange('finished')}
+              />
+              Finished
+            </label>
           </div>
 
           <div className="order-separator"></div>

@@ -1,0 +1,228 @@
+.team-node {
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-primary) 100%);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.team-node:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 16px rgba(18, 92, 92, 0.3);
+}
+
+/* Header */
+.team-header {
+  margin-bottom: 14px;
+}
+
+.team-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.team-title-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.team-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.team-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-name:hover {
+  border-bottom-color: var(--primary-light);
+  color: var(--primary-light);
+}
+
+.team-name-input {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--primary-light);
+  border-radius: 4px;
+  color: var(--text-primary);
+  outline: none;
+  min-width: 0;
+}
+
+.team-fill-badge {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(18, 92, 92, 0.3);
+  color: var(--primary-light);
+  border: 1px solid rgba(18, 92, 92, 0.4);
+}
+
+.team-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+/* Reuse shared button styles from OrderNode */
+.team-node .toggle-btn,
+.team-node .delete-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.team-node .toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.team-node .delete-btn:hover {
+  background-color: #e74c3c;
+}
+
+/* Progress bar */
+.team-progress-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.team-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* Content */
+.team-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Role Slots — reused from OrderNode styles */
+.team-node .role-slots {
+  margin-top: 4px;
+}
+
+.team-node .roles-title {
+  font-size: 13px;
+  margin: 0 0 8px 0;
+  color: #3498db;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.team-node .role-slot {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 2px solid;
+  border-radius: 6px;
+  min-height: 50px;
+  transition: all 0.3s ease;
+}
+
+.team-node .role-slot.empty {
+  border-style: dashed;
+  opacity: 0.7;
+}
+
+.team-node .role-slot.filled {
+  border-style: solid;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.team-node .role-slot:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.team-node .role-label {
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.team-node .drop-zone {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  font-style: italic;
+  text-align: center;
+  padding: 4px 0;
+}
+
+.team-node .assigned-member {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 6px 10px;
+  border-radius: 4px;
+  gap: 8px;
+}
+
+.team-node .member-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  flex: 1;
+}
+
+.team-node .remove-member-btn {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.team-node .remove-member-btn:hover {
+  background-color: #c0392b;
+}

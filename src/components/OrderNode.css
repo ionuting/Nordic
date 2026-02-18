@@ -14,6 +14,173 @@
   box-shadow: 0 4px 16px rgba(18, 92, 92, 0.3);
 }
 
+/* Status border variants */
+.order-node.status-to-start {
+  border: 2px solid #e74c3c;
+  box-shadow:
+    0 0 0 3px rgba(231, 76, 60, 0.5),
+    0 0 30px 10px rgba(231, 76, 60, 0.3),
+    0 0 60px 20px rgba(231, 76, 60, 0.15),
+    var(--shadow-md);
+}
+.order-node.status-to-start:hover {
+  box-shadow:
+    0 0 0 4px rgba(231, 76, 60, 0.7),
+    0 0 40px 14px rgba(231, 76, 60, 0.45),
+    0 0 80px 28px rgba(231, 76, 60, 0.2),
+    0 4px 16px rgba(231, 76, 60, 0.3);
+}
+
+.order-node.status-in-progress {
+  border: 2px solid #f39c12;
+  box-shadow:
+    0 0 0 3px rgba(243, 156, 18, 0.5),
+    0 0 30px 10px rgba(243, 156, 18, 0.3),
+    0 0 60px 20px rgba(243, 156, 18, 0.15),
+    var(--shadow-md);
+}
+.order-node.status-in-progress:hover {
+  box-shadow:
+    0 0 0 4px rgba(243, 156, 18, 0.7),
+    0 0 40px 14px rgba(243, 156, 18, 0.45),
+    0 0 80px 28px rgba(243, 156, 18, 0.2),
+    0 4px 16px rgba(243, 156, 18, 0.3);
+}
+
+.order-node.status-finished {
+  border: 2px solid #27ae60;
+  box-shadow:
+    0 0 0 3px rgba(39, 174, 96, 0.5),
+    0 0 30px 10px rgba(39, 174, 96, 0.3),
+    0 0 60px 20px rgba(39, 174, 96, 0.15),
+    var(--shadow-md);
+}
+.order-node.status-finished:hover {
+  box-shadow:
+    0 0 0 4px rgba(39, 174, 96, 0.7),
+    0 0 40px 14px rgba(39, 174, 96, 0.45),
+    0 0 80px 28px rgba(39, 174, 96, 0.2),
+    0 4px 16px rgba(39, 174, 96, 0.3);
+}
+
+/* Status checkboxes */
+.order-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.status-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 48px;
+}
+
+.status-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 5px 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  user-select: none;
+  letter-spacing: 0.3px;
+}
+
+.status-checkbox input[type='checkbox'] {
+  display: none;
+}
+
+.status-checkbox.to-start {
+  color: rgba(231, 76, 60, 0.7);
+  border-color: rgba(231, 76, 60, 0.25);
+  background: rgba(231, 76, 60, 0.06);
+}
+.status-checkbox.to-start:hover {
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.16);
+  border-color: rgba(231, 76, 60, 0.6);
+}
+.status-checkbox.to-start.active {
+  color: #fff;
+  background: #c0392b;
+  border-color: #e74c3c;
+  box-shadow: 0 0 12px rgba(231, 76, 60, 0.9), 0 2px 8px rgba(231, 76, 60, 0.7);
+  transform: scale(1.08);
+}
+.status-checkbox.to-start::before {
+  content: '●';
+  font-size: 7px;
+  opacity: 0.4;
+}
+.status-checkbox.to-start.active::before {
+  content: '✓';
+  font-size: 10px;
+  opacity: 1;
+}
+
+.status-checkbox.in-progress {
+  color: rgba(243, 156, 18, 0.7);
+  border-color: rgba(243, 156, 18, 0.25);
+  background: rgba(243, 156, 18, 0.06);
+}
+.status-checkbox.in-progress:hover {
+  color: #f39c12;
+  background: rgba(243, 156, 18, 0.16);
+  border-color: rgba(243, 156, 18, 0.6);
+}
+.status-checkbox.in-progress.active {
+  color: #fff;
+  background: #b7770d;
+  border-color: #f39c12;
+  box-shadow: 0 0 12px rgba(243, 156, 18, 0.9), 0 2px 8px rgba(243, 156, 18, 0.7);
+  transform: scale(1.08);
+}
+.status-checkbox.in-progress::before {
+  content: '●';
+  font-size: 7px;
+  opacity: 0.4;
+}
+.status-checkbox.in-progress.active::before {
+  content: '✓';
+  font-size: 10px;
+  opacity: 1;
+}
+
+.status-checkbox.finished {
+  color: rgba(39, 174, 96, 0.7);
+  border-color: rgba(39, 174, 96, 0.25);
+  background: rgba(39, 174, 96, 0.06);
+}
+.status-checkbox.finished:hover {
+  color: #27ae60;
+  background: rgba(39, 174, 96, 0.16);
+  border-color: rgba(39, 174, 96, 0.6);
+}
+.status-checkbox.finished.active {
+  color: #fff;
+  background: #1e8449;
+  border-color: #27ae60;
+  box-shadow: 0 0 12px rgba(39, 174, 96, 0.9), 0 2px 8px rgba(39, 174, 96, 0.7);
+  transform: scale(1.08);
+}
+.status-checkbox.finished::before {
+  content: '●';
+  font-size: 7px;
+  opacity: 0.4;
+}
+.status-checkbox.finished.active::before {
+  content: '✓';
+  font-size: 10px;
+  opacity: 1;
+}
+
 /* Header */
 .order-header {
   margin-bottom: 16px;

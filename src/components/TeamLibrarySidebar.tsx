@@ -1,17 +1,23 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { TeamMemberDisplay, QUALIFICATIONS } from '../types/teamMember';
 import { TeamMemberService } from '../services/supabaseService';
+import { Order } from '../types/order';
+import { Team } from '../types/team';
 import TeamMemberCard from './TeamMemberCard';
 import './TeamLibrarySidebar.css';
 
 interface TeamLibrarySidebarProps {
   onMemberSelect?: (member: TeamMemberDisplay) => void;
-  currentWeekNumber: number; // Filter members by week availability
+  currentWeekNumber: number;
+  orders?: Order[];
+  teams?: Team[];
 }
 
 const TeamLibrarySidebar: React.FC<TeamLibrarySidebarProps> = ({ 
   onMemberSelect,
-  currentWeekNumber
+  currentWeekNumber,
+  orders = [],
+  teams = []
 }) => {
   const [allMembers, setAllMembers] = useState<TeamMemberDisplay[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -52,8 +58,8 @@ const TeamLibrarySidebar: React.FC<TeamLibrarySidebarProps> = ({
     setError(null);
     
     try {
-      // Load only members available for current week
-      const members = await TeamMemberService.getAvailableMembersForWeek(currentWeekNumber);
+      // Load ALL members (we will filter out assigned ones locally based on orders)
+      const members = await TeamMemberService.getAllMembers();
       setAllMembers(members);
     } catch (err) {
       setError('Failed to load team members. Please check your connection.');
@@ -63,9 +69,27 @@ const TeamLibrarySidebar: React.FC<TeamLibrarySidebarProps> = ({
     }
   };
 
-  // Filter members based on search criteria
+  // Compute set of member IDs already assigned in active orders OR team configs
+  const assignedMemberIds = useMemo(() => {
+    const ids = new Set<number>();
+    orders.forEach((order) => {
+      order.roleAssignments.forEach((assignment) => {
+        if (assignment.member) ids.add(assignment.member.internal_number);
+      });
+    });
+    teams.forEach((team) => {
+      team.roleAssignments.forEach((assignment) => {
+        if (assignment.member) ids.add(assignment.member.internal_number);
+      });
+    });
+    return ids;
+  }, [orders, teams]);
+
+  // Filter members based on search criteria and exclude already-assigned members
   const filteredMembers = useMemo(() => {
     return allMembers.filter((member) => {
+      // Exclude members already assigned to any order
+      if (assignedMemberIds.has(member.internal_number)) return false;
       // Filter by name
       const matchesName = nameFilter === '' || 
         member.name.toLowerCase().includes(nameFilter.toLowerCase());
@@ -82,7 +106,7 @@ const TeamLibrarySidebar: React.FC<TeamLibrarySidebarProps> = ({
 
       return matchesName && matchesQualificationText && matchesQualificationSelect;
     });
-  }, [allMembers, nameFilter, qualificationFilter, selectedQualification]);
+  }, [allMembers, nameFilter, qualificationFilter, selectedQualification, assignedMemberIds]);
 
   // Group members by their qualifications
   const groupedMembers = useMemo(() => {
