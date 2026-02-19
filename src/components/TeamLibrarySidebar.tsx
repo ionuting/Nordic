@@ -16,7 +16,7 @@ interface TeamLibrarySidebarProps {
 
 const TeamLibrarySidebar: React.FC<TeamLibrarySidebarProps> = ({ 
   onMemberSelect,
-  currentWeekNumber,
+  currentWeekNumber: _currentWeekNumber,
   orders = [],
   teams = [],
   showTeamsView = false,

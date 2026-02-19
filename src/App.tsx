@@ -9,6 +9,7 @@ import { Order, createNewOrder } from './types/order';
 import { Team, createNewTeam } from './types/team';
 import { OrderService } from './services/orderService';
 import { TeamMemberService } from './services/supabaseService';
+import nordicLogo from '../sigla/sigla Nordic.webp';
 import './App.css';
 
 type TabType = 'home' | 'planning' | 'configure-teams' | 'database';
@@ -79,14 +80,14 @@ function App() {
     }
   };
 
-  const handleDeleteOrder = async (orderId: string) => {
+  const handleDeleteOrder = async (orderId: string): Promise<boolean> => {
     const confirmed = window.confirm('Are you sure you want to delete this order?');
-    if (confirmed) {
-      const success = await OrderService.deleteOrder(orderId);
-      if (success) {
-        setOrders((prev) => prev.filter((o) => o.id !== orderId));
-      }
+    if (!confirmed) return false;
+    const success = await OrderService.deleteOrder(orderId);
+    if (success) {
+      setOrders((prev) => prev.filter((o) => o.id !== orderId));
     }
+    return success;
   };
 
   const handleMemberDrop = async (orderId: string, role: string, member: TeamMemberDisplay) => {
@@ -236,8 +237,13 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Nordic Software Solutions</h1>
-        <p className="subtitle">Order Management System | Week {getCurrentWeekNumber()}</p>
+        <div className="app-header-inner">
+          <img src={nordicLogo} alt="Nordic logo" className="app-logo" />
+          <div>
+            <h1>Nordic Software Solutions</h1>
+            <p className="subtitle">Order Management System | Week {getCurrentWeekNumber()}</p>
+          </div>
+        </div>
       </header>
 
       {/* Tab Navigation */}
@@ -271,7 +277,18 @@ function App() {
       {/* Tab Content */}
       {activeTab === 'home' ? (
         <div className="tab-content tab-content-fixed">
-          <HomeMapView orders={orders} loading={loading} />
+          <HomeMapView
+            orders={orders}
+            loading={loading}
+            teams={teams}
+            currentWeekNumber={getCurrentWeekNumber()}
+            onAddOrder={handleAddOrder}
+            onUpdateOrder={handleUpdateOrder}
+            onDeleteOrder={handleDeleteOrder}
+            onMemberDrop={handleMemberDrop}
+            onMemberRemove={handleMemberRemove}
+            onTeamDrop={handleTeamDropOnOrder}
+          />
         </div>
       ) : activeTab === 'database' ? (
         <div className="tab-content tab-content-scrollable">
