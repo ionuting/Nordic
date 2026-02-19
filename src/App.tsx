@@ -9,7 +9,6 @@ import { Order, createNewOrder } from './types/order';
 import { Team, createNewTeam } from './types/team';
 import { OrderService } from './services/orderService';
 import { TeamMemberService } from './services/supabaseService';
-import nordicLogo from '../sigla/sigla Nordic.webp';
 import './App.css';
 
 type TabType = 'home' | 'planning' | 'configure-teams' | 'database';
@@ -238,7 +237,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <div className="app-header-inner">
-          <img src={nordicLogo} alt="Nordic logo" className="app-logo" />
+          <img src="/sigla-nordic.webp" alt="Nordic logo" className="app-logo" />
           <div>
             <h1>Nordic Software Solutions</h1>
             <p className="subtitle">Order Management System | Week {getCurrentWeekNumber()}</p>
