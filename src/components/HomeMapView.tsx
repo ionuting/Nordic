@@ -187,7 +187,8 @@ const HomeMapView: React.FC<HomeMapViewProps> = ({
           onClick={() => setLeftPanelOpen(!leftPanelOpen)}
           title={leftPanelOpen ? 'Hide team panel' : 'Show team panel'}
         >
-          {leftPanelOpen ? '◀ Team' : '▶ Team'}
+          <span className="btn-icon">{leftPanelOpen ? '◀' : '▶'}</span>
+          <span className="btn-text">Team</span>
         </button>
 
         <div className="toolbar-center">
@@ -234,7 +235,8 @@ const HomeMapView: React.FC<HomeMapViewProps> = ({
           onClick={() => setRightPanelOpen(!rightPanelOpen)}
           title={rightPanelOpen ? 'Hide order panel' : 'Show order panel'}
         >
-          {rightPanelOpen ? 'Order ▶' : 'Order ◀'}
+          <span className="btn-text">Order</span>
+          <span className="btn-icon">{rightPanelOpen ? '▶' : '◀'}</span>
         </button>
       </div>
 

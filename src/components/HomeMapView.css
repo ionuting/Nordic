@@ -150,6 +150,18 @@
   transition: all 0.2s ease;
   white-space: nowrap;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.panel-dock-btn .btn-icon {
+  display: inline-block;
+  font-size: 14px;
+}
+
+.panel-dock-btn .btn-text {
+  display: inline-block;
 }
 
 .panel-dock-btn:hover {
@@ -425,24 +437,52 @@
 @media (max-width: 768px) {
   .home-toolbar {
     flex-wrap: wrap;
-    gap: 6px;
-    padding: 8px 12px;
+    gap: 8px;
+    padding: 10px 12px;
   }
 
   .panel-dock-btn {
-    font-size: 12px;
-    padding: 6px 10px;
+    font-size: 11px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    gap: 4px;
+  }
+
+  .panel-dock-btn .btn-icon {
+    font-size: 13px;
   }
 
   .toolbar-center {
     flex-wrap: wrap;
     gap: 6px;
+    justify-content: center;
+  }
+
+  .toolbar-label {
+    font-size: 13px;
   }
 
   .week-input-sm {
-    width: 55px;
-    padding: 4px 8px;
+    width: 60px;
+    padding: 5px 8px;
     font-size: 13px;
+  }
+
+  .toolbar-badge {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+
+  .toolbar-toggle {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 16px;
+  }
+
+  .add-order-home-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 6px;
   }
 
   /* Hide footer on mobile when panel is open */
@@ -511,6 +551,143 @@
 }
 
 @media (max-width: 650px) {
-  /* Already handled by 768px breakpoint */
+  /* Compact toolbar for small screens */
+  .home-toolbar {
+    gap: 6px;
+    padding: 8px 10px;
+  }
+
+  .panel-dock-btn {
+    font-size: 10px;
+    padding: 5px 6px;
+    min-width: 60px;
+    gap: 3px;
+  }
+
+  .panel-dock-btn .btn-icon {
+    font-size: 12px;
+  }
+
+  .toolbar-label {
+    font-size: 12px;
+  }
+
+  .week-input-sm {
+    width: 50px;
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+
+  .toolbar-badge {
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+
+  .toolbar-toggle,
+  .add-order-home-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
 }
 
+/* Extra small screens - icon-only buttons */
+@media (max-width: 480px) {
+  .home-toolbar {
+    gap: 5px;
+    padding: 6px 8px;
+    justify-content: space-between;
+  }
+
+  /* Dock buttons - icon only */
+  .panel-dock-btn {
+    padding: 6px;
+    min-width: auto;
+    gap: 0;
+  }
+
+  .panel-dock-btn .btn-text {
+    display: none;
+  }
+
+  .panel-dock-btn .btn-icon {
+    font-size: 18px;
+  }
+
+  /* Hide text labels on very small screens */
+  .toolbar-label {
+    display: none;
+  }
+
+  .toolbar-sep {
+    margin: 0 -2px;
+    font-size: 14px;
+  }
+
+  /* Show only emojis on toggle buttons */
+  .toolbar-toggle {
+    padding: 6px;
+    font-size: 16px;
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  /* Hide text on toggle buttons, show only emoji */
+  .toolbar-toggle {
+    font-size: 0;
+  }
+
+  .toolbar-toggle::before {
+    font-size: 20px;
+  }
+
+  /* Weather button - show only emoji */
+  .toolbar-toggle:not(.machines)::before {
+    content: '🌤️';
+  }
+
+  /* Machines button - show only emoji */
+  .toolbar-toggle.machines::before {
+    content: '🏗️';
+  }
+
+  /* Add Order button compact */
+  .add-order-home-btn {
+    padding: 6px;
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0;
+  }
+
+  /* Show only emoji for Add Order */
+  .add-order-home-btn::before {
+    content: '➕';
+    font-size: 20px;
+  }
+
+  /* Compact badge */
+  .toolbar-badge {
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+
+  .week-input-sm {
+    width: 45px;
+    padding: 3px 4px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .toolbar-center {
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+  }
+}
