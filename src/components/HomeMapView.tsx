@@ -7,6 +7,7 @@ import { Machine } from '../types/machine';
 import { Team } from '../types/team';
 import { TeamMemberDisplay } from '../types/teamMember';
 import { WeatherService, LocationWeather } from '../services/weatherService';
+import { usePlatform } from '../hooks/usePlatform';
 import machinesData from '../data/machines.json';
 import TeamLibrarySidebar from './TeamLibrarySidebar';
 import OrderNode from './OrderNode';
@@ -52,6 +53,7 @@ const machineIcon = new L.Icon({
 
 interface HomeMapViewProps {
   orders: Order[];
+  teamMembers: TeamMemberDisplay[];
   loading: boolean;
   teams: Team[];
   currentWeekNumber: number;
@@ -65,6 +67,7 @@ interface HomeMapViewProps {
 
 const HomeMapView: React.FC<HomeMapViewProps> = ({
   orders,
+  teamMembers,
   loading,
   teams,
   currentWeekNumber,
@@ -75,10 +78,11 @@ const HomeMapView: React.FC<HomeMapViewProps> = ({
   onMemberRemove,
   onTeamDrop,
 }) => {
+  const { isMobile } = usePlatform();
   const [weekRangeStart, setWeekRangeStart] = useState<number>(1);
   const [weekRangeEnd, setWeekRangeEnd] = useState<number>(52);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-  const [leftPanelOpen, setLeftPanelOpen] = useState<boolean>(true);
+  const [leftPanelOpen, setLeftPanelOpen] = useState<boolean>(false);
   const [rightPanelOpen, setRightPanelOpen] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<Map<string, LocationWeather>>(new Map());
   const [showWeather, setShowWeather] = useState(true);
@@ -144,12 +148,22 @@ const HomeMapView: React.FC<HomeMapViewProps> = ({
   const handleOrderMarkerClick = (order: Order) => {
     setSelectedOrder(order);
     setRightPanelOpen(true);
+    // On mobile, close left panel to show fullscreen order details
+    if (isMobile) {
+      setLeftPanelOpen(false);
+    }
   };
 
   const handleAddOrderClick = () => {
     pendingSelectNewest.current = true;
-    setLeftPanelOpen(true);
-    setRightPanelOpen(true);
+    // On mobile, only open right panel for fullscreen; on web, open both
+    if (isMobile) {
+      setLeftPanelOpen(false);
+      setRightPanelOpen(true);
+    } else {
+      setLeftPanelOpen(true);
+      setRightPanelOpen(true);
+    }
     onAddOrder();
   };
 
@@ -367,6 +381,7 @@ const HomeMapView: React.FC<HomeMapViewProps> = ({
                 {selectedOrder ? (
                   <OrderNode
                     order={selectedOrder}
+                    teamMembers={teamMembers}
                     onUpdate={onUpdateOrder}
                     onDelete={handleDeleteOrder}
                     onMemberDrop={onMemberDrop}
@@ -396,6 +411,18 @@ const HomeMapView: React.FC<HomeMapViewProps> = ({
           </span>
         </div>
       </div>
+
+      {/* Mobile Overlay - closes panels when clicked */}
+      {isMobile && (leftPanelOpen || rightPanelOpen) && (
+        <div 
+          className="mobile-panel-overlay"
+          onClick={() => {
+            setLeftPanelOpen(false);
+            setRightPanelOpen(false);
+            setSelectedOrder(null);
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -3,10 +3,12 @@ import { Order, ROLE_TYPES, OrderStatus } from '../types/order';
 import { TeamMemberDisplay } from '../types/teamMember';
 import { Team } from '../types/team';
 import MapPicker from './MapPicker';
+import { OrderConfigurator } from './OrderConfigurator';
 import './OrderNode.css';
 
 interface OrderNodeProps {
   order: Order;
+  teamMembers: TeamMemberDisplay[];
   onUpdate: (order: Order) => void;
   onDelete: (orderId: string) => void;
   onMemberDrop: (orderId: string, role: string, member: TeamMemberDisplay) => void;
@@ -16,6 +18,7 @@ interface OrderNodeProps {
 
 const OrderNode: React.FC<OrderNodeProps> = ({
   order,
+  teamMembers,
   onUpdate,
   onDelete,
   onMemberDrop,
@@ -26,6 +29,7 @@ const OrderNode: React.FC<OrderNodeProps> = ({
   const [orderNumber, setOrderNumber] = useState(order.orderNumber);
   const [location, setLocation] = useState(order.location);
   const [showMapPicker, setShowMapPicker] = useState(false);
+  const [showConfigurator, setShowConfigurator] = useState(false);
   const [teamDropHover, setTeamDropHover] = useState(false);
 
   const handleOrderNumberChange = (value: string) => {
@@ -125,6 +129,13 @@ const OrderNode: React.FC<OrderNodeProps> = ({
         <div className="order-title-row">
           <h3 className="order-title">📅 Week {order.weekNumber}</h3>
           <div className="order-actions">
+            <button
+              className="config-btn"
+              onClick={() => setShowConfigurator(true)}
+              title="Configure team members"
+            >
+              👥
+            </button>
             <button
               className="toggle-btn"
               onClick={() => setIsExpanded(!isExpanded)}
@@ -313,6 +324,19 @@ const OrderNode: React.FC<OrderNodeProps> = ({
           initialLng={order.locationLongitude}
           onLocationSelect={handleLocationSelect}
           onClose={() => setShowMapPicker(false)}
+        />
+      )}
+
+      {/* Order Configurator Modal */}
+      {showConfigurator && (
+        <OrderConfigurator
+          order={order}
+          teamMembers={teamMembers}
+          onSave={(updatedOrder) => {
+            onUpdate(updatedOrder);
+            setShowConfigurator(false);
+          }}
+          onCancel={() => setShowConfigurator(false)}
         />
       )}
     </div>

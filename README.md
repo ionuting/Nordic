@@ -1,6 +1,6 @@
 # Task Planner TypeScript Application
 
-O aplicație TypeScript/React care se conectează la Supabase pentru managementul membrilor de echipă **și planificarea orders săptămânale**, replicând funcționalitățile din aplicația Godot TaskPlanner.
+O aplicație TypeScript/React care se conectează la Supabase pentru managementul membrilor de echipă **și planificarea orders săptămânale**, replicând funcționalitățile din aplicația Godot TaskPlanner. Disponibilă pe **Web și Android Mobile**.
 
 ## Caracteristici
 
@@ -17,6 +17,7 @@ O aplicație TypeScript/React care se conectează la Supabase pentru managementu
 - ✅ **Real-time updates** - Sincronizare automată cu Supabase
 - ✅ **Nordic Maskin Branding** - Design cu culoarea oficială (#125c5c)
 - ✅ **UI modern** - Design responsive cu React și CSS
+- ✅ **Mobile Support** - App Android cu Capacitor (acelasi codebase, web + mobile)
 
 ## Structura Bazei de Date
 
@@ -358,6 +359,50 @@ git push origin main
 
 # 4. Deploy!
 ```
+
+## 📱 Mobile Development cu Capacitor
+
+Aplicația are suport complet pentru **Android mobile** datorită Capacitor.
+
+### Quick Start
+
+```bash
+# Build pentru Android
+npm run build:mobile
+
+# Deschide Android Studio
+npx cap open android
+
+# Apasă Run button și gata!
+```
+
+**Avantaj:** Acelasi codebase React - modificări automata pe web și mobile.
+
+### Setup Complet
+- 📖 **Full guide:** [MOBILE_SETUP.md](MOBILE_SETUP.md) - Setup detaliat cu troubleshooting
+- ⚡ **Quick reference:** [QUICK_START_MOBILE.md](QUICK_START_MOBILE.md) - TL;DR pentru development zilnic
+- 📊 **Status:** [CAPACITOR_STATUS.md](CAPACITOR_STATUS.md) - Ce a fost configurat
+
+### Cerințe (First Time)
+1. **Android Studio** - https://developer.android.com/studio
+2. **Android SDK 31+** - Instalează din Android Studio
+3. **Java 11+** - Verifică cu `java -version`
+
+### Available Scripts
+```bash
+npm run dev                 # Web development
+npm run build:mobile        # Build React + sync Android
+npm run mobile:open         # Deschide Android Studio
+npm run mobile:build        # Build + deschide direct
+```
+
+### Workflow Normal
+1. **Editezi cod React** (ca de obicei)
+2. **Test web:** `npm run dev`
+3. **Test Android:** `npm run build:mobile` → apasă Run în Android Studio
+4. **Commit:** `git push` (se updatează web + Android)
+
+Poți testa pe emulator sau pe device real cu USB.
 
 ## Funcționalități viitoare
 

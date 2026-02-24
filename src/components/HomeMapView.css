@@ -422,14 +422,95 @@
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 768px) {
+  .home-toolbar {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 12px;
+  }
+
+  .panel-dock-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .toolbar-center {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .week-input-sm {
+    width: 55px;
+    padding: 4px 8px;
+    font-size: 13px;
+  }
+
+  /* Hide footer on mobile when panel is open */
+  .map-footer {
+    display: none;
+  }
+
+  /* Fullscreen panels on mobile */
   .home-side-panel.panel-open {
     width: 100%;
-    position: absolute;
-    z-index: 1000;
-    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    height: 100vh;
+    border: none;
   }
-  .left-panel { left: 0; }
-  .right-panel { right: 0; }
+
+  .home-side-panel.panel-open.left-panel {
+    left: 0;
+    right: auto;
+  }
+
+  .home-side-panel.panel-open.right-panel {
+    right: 0;
+    left: auto;
+  }
+
+  /* Close button more prominent on mobile */
+  .close-panel-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+  }
+
+  .close-panel-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .order-properties-header {
+    padding: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .order-properties-header h3 {
+    font-size: 18px;
+  }
+
+  /* Mobile panel overlay */
+  .mobile-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+    backdrop-filter: blur(2px);
+  }
+}
+
+@media (max-width: 650px) {
+  /* Already handled by 768px breakpoint */
 }
 

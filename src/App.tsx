@@ -16,14 +16,16 @@ type TabType = 'home' | 'planning' | 'configure-teams' | 'database';
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const [orders, setOrders] = useState<Order[]>([]);
+  const [teamMembers, setTeamMembers] = useState<TeamMemberDisplay[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   // Configure Teams state (local only)
   const [teams, setTeams] = useState<Team[]>([]);
 
-  // Load orders on component mount
+  // Load orders and team members on component mount
   useEffect(() => {
     loadOrders();
+    loadTeamMembers();
 
     // Subscribe to real-time changes
     const subscription = OrderService.subscribeToChanges(
@@ -58,6 +60,15 @@ function App() {
       console.error('Failed to load orders:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadTeamMembers = async () => {
+    try {
+      const members = await TeamMemberService.getAllMembers();
+      setTeamMembers(members);
+    } catch (error) {
+      console.error('Failed to load team members:', error);
     }
   };
 
@@ -278,6 +289,7 @@ function App() {
         <div className="tab-content tab-content-fixed">
           <HomeMapView
             orders={orders}
+            teamMembers={teamMembers}
             loading={loading}
             teams={teams}
             currentWeekNumber={getCurrentWeekNumber()}
@@ -411,6 +423,7 @@ function App() {
                     <OrderNode
                       key={order.id}
                       order={order}
+                      teamMembers={teamMembers}
                       onUpdate={handleUpdateOrder}
                       onDelete={handleDeleteOrder}
                       onMemberDrop={handleMemberDrop}

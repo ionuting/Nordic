@@ -204,7 +204,8 @@
 }
 
 .toggle-btn,
-.delete-btn {
+.delete-btn,
+.config-btn {
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
@@ -221,6 +222,10 @@
 
 .toggle-btn:hover {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.config-btn:hover {
+  background-color: #2196F3;
 }
 
 .delete-btn:hover {
