@@ -4,6 +4,7 @@ import OrderNode from './components/OrderNode';
 import TeamNode from './components/TeamNode';
 import HomeMapView from './components/HomeMapView';
 import DatabaseView from './components/DatabaseView';
+import Workplace from './components/Workplace';
 import { TeamMemberDisplay } from './types/teamMember';
 import { Order, createNewOrder } from './types/order';
 import { Team, createNewTeam } from './types/team';
@@ -11,7 +12,7 @@ import { OrderService } from './services/orderService';
 import { TeamMemberService } from './services/supabaseService';
 import './App.css';
 
-type TabType = 'home' | 'planning' | 'configure-teams' | 'database';
+type TabType = 'home' | 'planning' | 'configure-teams' | 'database' | 'workplace';
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
@@ -277,6 +278,12 @@ function App() {
           👥 Configure Teams
         </button>
         <button
+          className={`tab-btn ${activeTab === 'workplace' ? 'active' : ''}`}
+          onClick={() => setActiveTab('workplace')}
+        >
+          👤 Workplace
+        </button>
+        <button
           className={`tab-btn ${activeTab === 'database' ? 'active' : ''}`}
           onClick={() => setActiveTab('database')}
         >
@@ -300,6 +307,10 @@ function App() {
             onMemberRemove={handleMemberRemove}
             onTeamDrop={handleTeamDropOnOrder}
           />
+        </div>
+      ) : activeTab === 'workplace' ? (
+        <div className="tab-content tab-content-fixed">
+          <Workplace userId="user-1" userName="Current User" />
         </div>
       ) : activeTab === 'database' ? (
         <div className="tab-content tab-content-scrollable">
