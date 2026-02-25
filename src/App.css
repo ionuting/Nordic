@@ -34,6 +34,7 @@ body {
   text-align: center;
   box-shadow: var(--shadow-md);
   border-bottom: 2px solid var(--primary-light);
+  min-height: 52px;
 }
 
 .app-header-inner {
@@ -56,6 +57,8 @@ body {
   font-size: 20px;
   color: white;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
 .subtitle {
@@ -63,6 +66,8 @@ body {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.85);
   font-weight: 500;
+  white-space: nowrap;
+  line-height: 1.1;
 }
 
 /* Tab Navigation */
@@ -328,5 +333,95 @@ body {
 @media (max-width: 768px) {
   .orders-list {
     grid-template-columns: 1fr;
+  }
+  
+  /* Header optimization for tablets */
+  .app-header {
+    padding: 6px 14px;
+  }
+  
+  .app-header-inner {
+    gap: 10px;
+  }
+  
+  .app-logo {
+    height: 32px;
+  }
+  
+  .app-header h1 {
+    font-size: 18px;
+  }
+  
+  .subtitle {
+    font-size: 11px;
+  }
+}
+
+/* Mobile header optimization */
+@media (max-width: 600px) {
+  .app-header {
+    padding: 6px 10px;
+  }
+  
+  .app-header-inner {
+    gap: 8px;
+  }
+  
+  .app-logo {
+    height: 28px;
+  }
+  
+  .app-header h1 {
+    font-size: 16px;
+  }
+  
+  .subtitle {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 5px 8px;
+  }
+  
+  .app-header-inner {
+    gap: 6px;
+  }
+  
+  .app-logo {
+    height: 24px;
+  }
+  
+  .app-header h1 {
+    font-size: 14px;
+  }
+  
+  .subtitle {
+    font-size: 9px;
+    margin: 1px 0 0 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .app-header {
+    padding: 4px 6px;
+  }
+  
+  .app-header-inner {
+    gap: 5px;
+  }
+  
+  .app-logo {
+    height: 22px;
+  }
+  
+  .app-header h1 {
+    font-size: 12px;
+  }
+  
+  .subtitle {
+    font-size: 8px;
+    margin: 0;
   }
 }

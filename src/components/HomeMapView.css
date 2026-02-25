@@ -16,8 +16,8 @@
 .home-toolbar {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
+  gap: 8px;
+  padding: 8px 12px;
   background: var(--bg-card);
   border-bottom: 2px solid var(--border-color);
   box-shadow: var(--shadow-sm);
@@ -28,9 +28,10 @@
 .toolbar-center {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex: 1;
   flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .toolbar-label {
@@ -41,9 +42,10 @@
 }
 
 .toolbar-sep {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--text-muted);
-  font-weight: bold;
+  font-weight: 400;
+  margin: 0 2px;
 }
 
 .week-input-sm {
@@ -65,26 +67,32 @@
 }
 
 .toolbar-badge {
-  padding: 5px 14px;
+  padding: 4px 10px;
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
   color: white;
-  border-radius: 20px;
-  font-size: 13px;
+  border-radius: 16px;
+  font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
 }
 
 .toolbar-toggle {
-  padding: 6px 14px;
+  padding: 8px;
   background: linear-gradient(135deg, #78909c 0%, #546e7a 100%);
   color: white;
   border: none;
-  border-radius: 20px;
-  font-size: 13px;
+  border-radius: 18px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
   white-space: nowrap;
+  line-height: 1;
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .toolbar-toggle:hover {
@@ -114,17 +122,23 @@
 
 /* Add Order Button */
 .add-order-home-btn {
-  padding: 8px 18px;
+  padding: 8px;
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 18px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: var(--shadow-sm);
   white-space: nowrap;
+  line-height: 1;
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .add-order-home-btn:hover:not(:disabled) {
@@ -139,12 +153,12 @@
 
 /* Dock toggle buttons (left/right ends of toolbar) */
 .panel-dock-btn {
-  padding: 8px 14px;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
   background: var(--bg-secondary);
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -152,7 +166,7 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .panel-dock-btn .btn-icon {
@@ -437,52 +451,62 @@
 @media (max-width: 768px) {
   .home-toolbar {
     flex-wrap: wrap;
-    gap: 8px;
-    padding: 10px 12px;
+    gap: 6px;
+    padding: 6px 8px;
   }
 
   .panel-dock-btn {
     font-size: 11px;
-    padding: 6px 8px;
-    border-radius: 6px;
-    gap: 4px;
+    padding: 5px 7px;
+    border-radius: 16px;
+    gap: 3px;
   }
 
   .panel-dock-btn .btn-icon {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .toolbar-center {
     flex-wrap: wrap;
-    gap: 6px;
-    justify-content: center;
+    gap: 5px;
+    justify-content: flex-start;
   }
 
   .toolbar-label {
-    font-size: 13px;
+    font-size: 11px;
   }
 
   .week-input-sm {
-    width: 60px;
-    padding: 5px 8px;
-    font-size: 13px;
+    width: 50px;
+    padding: 4px 5px;
+    font-size: 12px;
+    border-width: 1px;
   }
 
   .toolbar-badge {
-    padding: 4px 10px;
-    font-size: 12px;
+    padding: 3px 7px;
+    font-size: 11px;
+  }
+
+  /* Hide "orders" text, show only number on medium screens */
+  .toolbar-badge .badge-text {
+    display: none;
   }
 
   .toolbar-toggle {
-    padding: 5px 10px;
-    font-size: 12px;
+    padding: 6px;
+    font-size: 15px;
     border-radius: 16px;
+    min-width: 36px;
+    min-height: 36px;
   }
 
   .add-order-home-btn {
-    padding: 6px 12px;
-    font-size: 13px;
-    border-radius: 6px;
+    padding: 6px;
+    font-size: 15px;
+    border-radius: 16px;
+    min-width: 36px;
+    min-height: 36px;
   }
 
   /* Hide footer on mobile when panel is open */
@@ -553,56 +577,105 @@
 @media (max-width: 650px) {
   /* Compact toolbar for small screens */
   .home-toolbar {
-    gap: 6px;
-    padding: 8px 10px;
+    gap: 5px;
+    padding: 5px 6px;
   }
 
   .panel-dock-btn {
     font-size: 10px;
-    padding: 5px 6px;
-    min-width: 60px;
-    gap: 3px;
+    padding: 4px 6px;
+    min-width: auto;
+    gap: 2px;
+    border-radius: 16px;
   }
 
   .panel-dock-btn .btn-icon {
-    font-size: 12px;
+    font-size: 14px;
+  }
+
+  .panel-dock-btn .btn-text {
+    display: none;
   }
 
   .toolbar-label {
-    font-size: 12px;
+    display: none;
   }
 
   .week-input-sm {
-    width: 50px;
-    padding: 4px 6px;
+    width: 44px;
+    padding: 4px;
     font-size: 12px;
+    border-width: 1px;
   }
 
   .toolbar-badge {
-    padding: 3px 8px;
+    padding: 4px 6px;
     font-size: 11px;
+    border-radius: 50%;
+  }
+
+  .toolbar-sep {
+    margin: 0 -2px;
+    font-size: 12px;
   }
 
   .toolbar-toggle,
   .add-order-home-btn {
-    padding: 5px 10px;
+    padding: 6px;
+    font-size: 14px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+}
+
+/* Very small screens - more aggressive optimization */
+@media (max-width: 550px) {
+  .home-toolbar {
+    gap: 4px;
+    padding: 4px 5px;
+  }
+
+  .toolbar-toggle,
+  .add-order-home-btn {
+    padding: 6px;
+    font-size: 13px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .week-input-sm {
+    width: 40px;
+    padding: 4px 2px;
+    font-size: 11px;
+  }
+
+  .toolbar-badge {
+    padding: 4px 5px;
     font-size: 11px;
   }
 }
 
-/* Extra small screens - icon-only buttons */
+/* Extra small screens - icon-only buttons, optimized layout */
 @media (max-width: 480px) {
   .home-toolbar {
-    gap: 5px;
-    padding: 6px 8px;
+    gap: 4px;
+    padding: 4px 5px;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    border-bottom-width: 1px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
   }
 
-  /* Dock buttons - icon only */
+  /* Dock buttons - icon only, smaller */
   .panel-dock-btn {
     padding: 6px;
-    min-width: auto;
+    min-width: 36px;
+    height: 36px;
     gap: 0;
+    flex-shrink: 0;
+    border-width: 1px;
+    border-radius: 50%;
   }
 
   .panel-dock-btn .btn-text {
@@ -610,7 +683,7 @@
   }
 
   .panel-dock-btn .btn-icon {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   /* Hide text labels on very small screens */
@@ -619,8 +692,49 @@
   }
 
   .toolbar-sep {
-    margin: 0 -2px;
-    font-size: 14px;
+    margin: 0 -1px;
+    font-size: 11px;
+    opacity: 0.6;
+  }
+
+  /* Week inputs - very compact */
+  .week-input-sm {
+    width: 38px;
+    padding: 5px 3px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 700;
+    border-width: 1px;
+  }
+
+  /* Compact badge - just number */
+  .toolbar-badge {
+    padding: 5px 7px;
+    font-size: 12px;
+    min-width: 28px;
+    text-align: center;
+    font-weight: 700;
+    border-radius: 50%;
+  }
+
+  /* Hide "orders" text, show only number */
+  .toolbar-badge .badge-text {
+    display: none;
+  }
+
+  .toolbar-badge .badge-number {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* Toolbar center takes full width, wraps to 2 rows */
+  .toolbar-center {
+    gap: 3px;
+    flex: 1 1 100%;
+    order: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
 
   /* Show only emojis on toggle buttons */
@@ -635,25 +749,6 @@
     border-radius: 50%;
   }
 
-  /* Hide text on toggle buttons, show only emoji */
-  .toolbar-toggle {
-    font-size: 0;
-  }
-
-  .toolbar-toggle::before {
-    font-size: 20px;
-  }
-
-  /* Weather button - show only emoji */
-  .toolbar-toggle:not(.machines)::before {
-    content: '🌤️';
-  }
-
-  /* Machines button - show only emoji */
-  .toolbar-toggle.machines::before {
-    content: '🏗️';
-  }
-
   /* Add Order button compact */
   .add-order-home-btn {
     padding: 6px;
@@ -663,31 +758,11 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    font-size: 0;
+    font-size: 16px;
   }
 
-  /* Show only emoji for Add Order */
-  .add-order-home-btn::before {
-    content: '➕';
-    font-size: 20px;
-  }
-
-  /* Compact badge */
-  .toolbar-badge {
-    padding: 3px 6px;
-    font-size: 10px;
-  }
-
-  .week-input-sm {
-    width: 45px;
-    padding: 3px 4px;
-    font-size: 12px;
-    text-align: center;
-  }
-
-  .toolbar-center {
-    gap: 4px;
-    flex: 1;
-    justify-content: center;
+  /* Hide weather loading on very small screens */
+  .weather-loading-sm {
+    display: none;
   }
 }

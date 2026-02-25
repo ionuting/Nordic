@@ -204,29 +204,35 @@ const HomeMapView: React.FC<HomeMapViewProps> = ({
             onChange={(e) => setWeekRangeEnd(Number(e.target.value))}
             className="week-input-sm"
           />
-          <span className="toolbar-badge">{filteredOrders.length} order{filteredOrders.length !== 1 ? 's' : ''}</span>
+          <span className="toolbar-badge">
+            <span className="badge-number">{filteredOrders.length}</span>
+            <span className="badge-text"> order{filteredOrders.length !== 1 ? 's' : ''}</span>
+          </span>
 
           <button
             className={`toolbar-toggle ${showWeather ? 'active' : ''}`}
             onClick={() => setShowWeather(!showWeather)}
+            title={showWeather ? 'Weather ON' : 'Weather OFF'}
           >
-            🌤️ {showWeather ? 'Weather ON' : 'Weather OFF'}
+            🌤️
           </button>
           {weatherLoading && <span className="weather-loading-sm">Loading…</span>}
 
           <button
             className={`toolbar-toggle machines ${showMachines ? 'active' : ''}`}
             onClick={() => setShowMachines(!showMachines)}
+            title={showMachines ? 'Machines ON' : 'Machines OFF'}
           >
-            🏗️ {showMachines ? 'Machines ON' : 'Machines OFF'}
+            🏗️
           </button>
 
           <button
             className="add-order-home-btn"
             onClick={handleAddOrderClick}
             disabled={loading}
+            title="Add Order"
           >
-            ➕ Add Order
+            ➕
           </button>
         </div>
 
