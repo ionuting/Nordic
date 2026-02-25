@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './MapPicker.css';
+import { usePlatform } from '../hooks/usePlatform';
 
 // Fix Leaflet default marker icon issue with webpack
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -42,9 +43,11 @@ const MapPicker: React.FC<MapPickerProps> = ({
   onLocationSelect,
   onClose,
 }) => {
+  const { isMobile } = usePlatform();
   const [position, setPosition] = useState<[number, number] | null>([initialLat, initialLng]);
   const [address, setAddress] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
+  const [infoExpanded, setInfoExpanded] = useState(!isMobile); // Collapsed by default on mobile
 
   // Reverse geocoding to get address from coordinates
   const fetchAddress = async (lat: number, lng: number) => {
@@ -85,19 +88,33 @@ const MapPicker: React.FC<MapPickerProps> = ({
     <div className="map-picker-overlay">
       <div className="map-picker-container">
         <div className="map-picker-header">
-          <h3>📍 Select Location on Map</h3>
+          <h3>📍 Select Location</h3>
           <button className="map-close-btn" onClick={onClose}>✕</button>
         </div>
 
-        <div className="map-picker-info">
-          {position && (
+        <div className={`map-picker-info ${infoExpanded ? 'expanded' : 'collapsed'}`}>
+          <button 
+            className="info-toggle-btn"
+            onClick={() => setInfoExpanded(!infoExpanded)}
+            title={infoExpanded ? 'Hide details' : 'Show details'}
+          >
+            <span className="toggle-icon">{infoExpanded ? '▲' : '▼'}</span>
+            <span className="toggle-text">
+              {infoExpanded ? 'Hide Details' : 'Show Details'}
+            </span>
+          </button>
+          {position && infoExpanded && (
             <div className="coordinates-display">
               <strong>Coordinates:</strong> {position[0].toFixed(6)}, {position[1].toFixed(6)}
               <br />
               <strong>Address:</strong> {isLoading ? 'Loading...' : address}
             </div>
           )}
-          <p className="map-instruction">Click on the map to select a location</p>
+          {!infoExpanded && position && (
+            <div className="coordinates-compact">
+              {position[0].toFixed(4)}, {position[1].toFixed(4)}
+            </div>
+          )}
         </div>
 
         <div className="map-wrapper">
